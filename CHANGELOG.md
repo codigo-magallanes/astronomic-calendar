@@ -1,4 +1,6 @@
 # CHANGELOG: Astronomic Calendar
+## v0.1.2
+ - Added month name
 ## v0.1.1
  - All CSS in index.css
  - Some CSS fixes

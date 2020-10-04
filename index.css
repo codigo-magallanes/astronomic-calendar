@@ -13,6 +13,12 @@ footer {
 .month {
   max-width: 30rem;
 }
+.month-name {
+  font-size: 2rem;
+  color: red;
+  font-weight: bolder;
+  text-align: center;
+}
 .week {
   display: flex;
   flex-grow: 1;

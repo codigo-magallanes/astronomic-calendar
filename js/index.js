@@ -14,31 +14,32 @@ calendar.printScreen(1, 12, "2019, 4, 5");
 
 // New Secular Calendar Options
 // Array of day names
-const weekDaysARRAY = [];
-weekDaysARRAY[0] = "Venus";
-weekDaysARRAY[1] = "Marte";
-weekDaysARRAY[2] = "Júpiter";
-weekDaysARRAY[3] = "Sol";
-weekDaysARRAY[4] = "Luna";
+const weekDaysARRAY = [
+  "venus",
+  "marte",
+  "júpiter",
+  "sol",
+  "luna"
+];
 
 // Length of week
 //const daysInWeek = weekDaysARRAY.length;
 
 // Array of month names
 const monthsARRAY = [
-  "Capricornio",
-  "Acuario",
-  "Piscis",
-  "Aries",
-  "Tauro",
-  "Géminis",
-  "Cáncer",
-  "Leo",
-  "Virgo",
-  "Libra",
-  "Escorpio",
-  "Sagitario",
-  "Andrómeda",
+  "capricornio",
+  "acuario",
+  "piscis",
+  "aries",
+  "tauro",
+  "géminis",
+  "cáncer",
+  "leo",
+  "virgo",
+  "libra",
+  "escorpio",
+  "sagitario",
+  "andrómeda",
 ];
 
 setTimeout(testDateChange, 5000);

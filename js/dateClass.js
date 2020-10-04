@@ -239,7 +239,14 @@ class NSCalendar {
     dayNames += "</div>";
     return dayNames;
   }
+  printMonthName(m) {
+    let monthName = this._months[m - 1].replace(/^\w/, (c) => c.toUpperCase());
+    return monthName
+  }
   printScreen(firstDay, month, date) {
+    const elMonthName = document.querySelector('.month-name')
+    elMonthName.innerHTML = this.printMonthName(month)
+
     const elDayNames = document.querySelector("#day-names");
     elDayNames.innerHTML = this.printDayNames();
   
