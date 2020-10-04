@@ -1,0 +1,46 @@
+/* days */
+.day {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+.day-4 {
+  background-color: yellow;
+}
+.day-5 {
+  background-color: yellowgreen;
+}
+  /* moon */
+.moon {
+  padding: 0.3rem;
+  border-radius: 0.8rem;
+}
+.full-moon {
+  background-color: black;
+  color: white;
+}
+.new-moon {
+  background-color: grey;
+}
+ /* sun */
+.new-year {
+  font-weight: bolder;
+  color: white;
+  background-color: darkorchid;
+}
+/*
+.new-year::after {
+  content: "\A New Year";
+  white-space: pre;
+}
+*/
+.void {
+  font-size: 1rem;
+}
+
+footer {
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: .6em;
+    text-align: center;
+}
