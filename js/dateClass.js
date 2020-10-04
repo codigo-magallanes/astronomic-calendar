@@ -3,12 +3,12 @@ class NSCalendar {
     this._yearZero = yearZero;
     this._year = gregYear - yearZero;
     this._gregYear = gregYear;
-    //this._weekDays = weekDays
-    //this._months = months;
     this._data = data;
     this._sunData = [];
   }
-
+  /** 
+   * DEFAULT VALUES
+   */
   _weekDays = [
     "lunes",
     "martes",
@@ -18,10 +18,6 @@ class NSCalendar {
     "sábado",
     "domingo",
   ];
-  set weekDays(arr) {
-    this._weekDays = arr;
-    console.log("weekDays = ", arr);
-  }
   _months = [
       "enero",
       "febrero",
@@ -36,6 +32,14 @@ class NSCalendar {
       "noviembre",
       "diciembre"
   ]
+  /**
+   * MODIFY DEFAULT VALUES
+   * SETTERS & GETTERS
+   */
+  set weekDays(arr) {
+    this._weekDays = arr;
+    console.log("weekDays = ", arr);
+  }
   set monthNames(arr) {
       this._months = arr
       console.log('months = ', arr)
@@ -54,19 +58,17 @@ class NSCalendar {
     console.log({ arr });
     this._sunData = arr;
   }
+  // yearZero
   set yearZero(y) {
     this._yearZero = y;
   }
+  get yearZero() {
+    return this._yearZero
+  }
+  // Astronomic Data
   get astroData() {
     return this._data;
   }
-  /** CONFIGURATION */
-  // locale
-  conf_locale = "es-ES";
-
-  // Moon cicle
-  conf_moonCicle = false;
-
   // Leap year
   conf_leapYears = true;
   get leapYears() {
@@ -76,7 +78,6 @@ class NSCalendar {
     this.conf_leapYears = x;
     console.log("leapYears = ", x);
   }
-
   // Show full moon
   showFullMoon = true;
   get fullMoon() {
@@ -86,7 +87,6 @@ class NSCalendar {
     this.showFullMoon = x;
     console.log("showFullMoon = ", x);
   }
-
   // Show new Moon
   showNewMoon = true;
   get newMoon() {
@@ -95,34 +95,34 @@ class NSCalendar {
   set newMoon(x) {
     this.showNewMoon = x;
   }
+  /** CONFIGURATION */
+  // locale
+  conf_locale = "es-ES";
+  set locale(x) {
+    this.conf_locale = x
+    console.log('conf_locale: ', locale)
+  }
+  get locale() {
+    return this.conf_locale
+  }
+  // Moon cicle
+  conf_moonCicle = false;
+  set moonCicle(x) {
+    this.conf_moonCicle = x
+    console.log('conf_moonCicle: ', this.moonCicle)
+  }
+  get conf_moonCicle() {
+    return this.conf_moonCicle
+  }
 
   /** INTERNAL FUNCTIONS */
   // DATES
-  // Working OK in printMonthDays() and printWeek()
-  /*
-    addDays(x,n) {
-        console.log(x)
-        let d = new Date(x.getTime())
-        return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n)
-    }
-    */
-  // not tested
   toLocalDate(d) {
     let day = new Date(d);
     let temp = `${day.toLocaleString(this.conf_locale)}`;
     console.log({ temp });
     return temp.split(" ");
   }
-  // not tested
-  /*
-    nextDay(day) {
-        console.log({day})
-        let d = new Date(day)
-        console.log({d})
-        let date = new Date(next);
-        return this.toLocalDate(date)[0]
-    }
-*/
   addDays(date, days) {
     var result = new Date(date);
     console.log({ result });
@@ -187,7 +187,6 @@ class NSCalendar {
     );
     let firstDayDate = date;
     let firstDayOfWeek = firstDayOfMonth;
-    // let firstWeekDays = this.numWeekDays - firstDayOfMonth
     for (let r = 1; r <= numberOfWeeks; ++r) {
       html += `<div class="week week-${r}"><div class="week-number">${r}</div>`;
       html += this.printWeek(r, days, firstDayOfMonth, firstDayDate);
@@ -209,9 +208,7 @@ class NSCalendar {
   // date = gregorian date of first day of the week.
   printWeek(w, days, firstDay, date) {
     let html = "",
-      newDate;
-    //newDate = this.toLocaleDateString(date)
-    console.log({ firstDay, date, newDate });
+    newDate;
     let d = w * this.numWeekDays - (this.numWeekDays + firstDay) + 1;
     for (let c = 1; c <= this.numWeekDays; ++c) {
       newDate = date.toLocaleDateString();
@@ -224,9 +221,7 @@ class NSCalendar {
         )}" title="${newDate}">
                 <span class="day-number">${d}</span>
                 </div>`;
-        //newDate = this.addDays(newDate, 1)
         date = this.addDays(date, 1);
-        console.log("nextDay: ", date);
         d++;
       } else {
         html += `<div class="day"></div>`;
@@ -237,7 +232,7 @@ class NSCalendar {
   printDayNames() {
     let dayNames = '<div class="day-names"><div class="week-number"></div>';
     for (let d = 0; d < this.numWeekDays; d++) {
-      dayNames += `<div class="day day-${d + 1} day-name">${
+      dayNames += `<div class="day-name day day-${d + 1}">${
         this._weekDays[d]
       }</div>`;
     }

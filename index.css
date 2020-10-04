@@ -1,7 +1,42 @@
+/* page */
+:root {
+  font-size: x-small;
+}
+footer {
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-size: 0.6em;
+  text-align: center;
+}
+/* month */
+.month {
+  max-width: 30rem;
+}
+.week {
+  display: flex;
+  flex-grow: 1;
+  height: 3rem;
+}
+.week-number {
+  width: 1rem;
+}
 /* days */
+.day-number {
+  font-weight: bold;
+  margin: 0.25rem;
+}
 .day {
   position: relative;
+  background-color: white;
+  display: flex;
+  flex-basis: 3rem;
+  flex-grow: 1;
+  align-items: flex-start;
+  justify-content: flex-end;
+  border: 1px solid black;
   border-bottom: 1px dotted black;
+  margin: 0.1rem;
 }
 .day-4 {
   background-color: yellow;
@@ -9,7 +44,15 @@
 .day-5 {
   background-color: yellowgreen;
 }
-  /* moon */
+.day-names {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 1.5rem;
+}
+.day-name {
+  justify-content: center;
+}
+/* moon */
 .moon {
   padding: 0.3rem;
   border-radius: 0.8rem;
@@ -21,26 +64,17 @@
 .new-moon {
   background-color: grey;
 }
- /* sun */
+/* sun */
 .new-year {
   font-weight: bolder;
   color: white;
   background-color: darkorchid;
 }
-/*
-.new-year::after {
-  content: "\A New Year";
+.new-year::before {
+  font-size: small;
+  content: "\A \A New Year";
   white-space: pre;
 }
-*/
 .void {
   font-size: 1rem;
-}
-
-footer {
-    width: 100%;
-    background-color: black;
-    color: white;
-    font-size: .6em;
-    text-align: center;
 }

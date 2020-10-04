@@ -8,60 +8,6 @@
     <script src="./js/data.js"></script>
     <script src="./js/dateClass.js" defer></script>
     <script src="./js/index.js" defer></script>
-    <style>
-      .month {
-        max-width: 30rem;
-      }
-      .week {
-        display: flex;
-        flex-grow: 1;
-        height: 4rem;
-      }
-      .week-number {
-        width: 1rem;
-      }
-      .day-names {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        font-size: large;
-      }
-      .day {
-          position: relative;
-          background-color: white;
-          display: flex;
-          flex-basis: 3rem;
-          flex-grow: 1;
-          align-items: flex-start;
-          justify-content: flex-end;
-          border: 1px solid black;
-          margin: 0.1rem;
-        }
-        .day-4 {
-            background-color: yellow;
-        }
-        .day-5 {
-            background-color: yellowgreen;
-        }
-        .day-name {
-            justify-content: center;
-        }
-        .day-number {
-            font-weight: bold;
-            margin: 0.25rem;
-        }
-         /* sun */
-        .new-year {
-          font-weight: bolder;
-          color: white;
-          background-color: darkorchid;
-        }
-        .new-year::before {
-            font-size: small;
-          content: "\A \A New Year";
-          white-space: pre;
-        }
-    </style>
   </head>
   <body>
     <div class="month">
@@ -69,7 +15,5 @@
       <div id="month-days"></div>
     </div>
     <div id="calendar"></div>
-    <button id="test">test</button>
-    <div id="json"></div>
   </body>
 </html>
