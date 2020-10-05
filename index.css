@@ -11,9 +11,11 @@ footer {
 }
 /* month */
 .calendar-container {
-  max-width: 30rem;
+  max-width: 40rem;
 }
 .month-name {
+  margin-top: 1rem;
+  padding: 1rem;
   font-size: 2rem;
   color: red;
   font-weight: bolder;
@@ -59,7 +61,7 @@ footer {
 }
 .day-names {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   font-size: 1.5rem;
 }
 .day-name {
