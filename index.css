@@ -10,7 +10,7 @@ footer {
   text-align: center;
 }
 /* month */
-.month {
+.calendar-container {
   max-width: 30rem;
 }
 .month-name {
@@ -28,13 +28,9 @@ footer {
   width: 1rem;
 }
 /* days */
-.day-number {
-  font-weight: bold;
-  margin: 0.25rem;
-}
 .day {
   position: relative;
-  background-color: white;
+  background-color: azure;
   display: flex;
   flex-basis: 3rem;
   flex-grow: 1;
@@ -43,6 +39,17 @@ footer {
   border: 1px solid black;
   border-bottom: 1px dotted black;
   margin: 0.1rem;
+}
+.day:empty {
+  background-color: transparent;
+  border: 0;
+}
+.void {
+  font-size: 1rem;
+}
+.day-number {
+  font-weight: bold;
+  margin: 0.25rem;
 }
 .day-4 {
   background-color: yellow;
@@ -80,7 +87,4 @@ footer {
   font-size: small;
   content: "\A \A New Year";
   white-space: pre;
-}
-.void {
-  font-size: 1rem;
 }
