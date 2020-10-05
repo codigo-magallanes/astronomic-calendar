@@ -52,13 +52,14 @@ class NSCalendar {
    */
   set includeSunPhase(sunPhase) {
     let arr = [];
-    console.log(this._data);
     this._data["sun"].forEach((s) => {
       if (s.phase == sunPhase) {
-        arr.push(this.toLocalDate(s.date)[0]);
+        console.log(s.date);
+        //arr.push(this.toLocalDate(s.date));
+        arr.push(new Date(s.date).toLocaleDateString());
       }
     });
-    console.log({ arr });
+    console.log("Sun Phases set: ", this._data, arr);
     this._sunData = arr;
   }
   // yearZero
@@ -125,9 +126,9 @@ class NSCalendar {
   // DATES
   toLocalDate(d) {
     let day = new Date(d);
-    let temp = `${day.toLocaleString(this.conf_locale)}`;
-    console.log({ temp });
-    return temp.split(" ");
+    let localeDate = `${day.toLocaleString(this.conf_locale)}`;
+    console.log({ localeDate });
+    return localeDate.split(" ");
   }
   addDays(date, days) {
     var result = new Date(date);
@@ -185,7 +186,9 @@ class NSCalendar {
   // date = first day of de month in gregorian time
   // in original formula is also: moon = moon data
   printMonthDays(firstDayOfMonth, m, date) {
-    let html = "", printWeekResp, lastDayOfMonth
+    let html = "",
+      printWeekResp,
+      lastDayOfMonth;
     let days = this.monthsDays[m];
     let numberOfWeeks = Math.ceil(
       (this.monthsDays[m] + firstDayOfMonth) / this.numWeekDays
@@ -193,9 +196,9 @@ class NSCalendar {
     let firstDayDate = date;
     let firstDayOfWeek = firstDayOfMonth;
     for (let r = 1; r <= numberOfWeeks; ++r) {
-      printWeekResp = this.printWeek(r, days, firstDayOfMonth, firstDayDate)
+      printWeekResp = this.printWeek(r, days, firstDayOfMonth, firstDayDate);
       html += `<div class="week week-${r}"><div class="week-number">${r}</div>`;
-      html += printWeekResp.html
+      html += printWeekResp.html;
       html += `</div>`;
       firstDayDate = this.addDays(
         firstDayDate,
@@ -203,7 +206,7 @@ class NSCalendar {
       );
       firstDayOfWeek = 0;
       if (r == numberOfWeeks) {
-        lastDayOfMonth = printWeekResp.lastDayOfWeek
+        lastDayOfMonth = printWeekResp.lastDayOfWeek;
       }
     }
     return { html, lastDayOfMonth };
@@ -218,7 +221,7 @@ class NSCalendar {
   printWeek(w, days, firstDay, date) {
     let html = "",
       newDate,
-      lastDayOfWeek = 0
+      lastDayOfWeek = 0;
     let d = w * this.numWeekDays - (this.numWeekDays + firstDay) + 1;
     for (let c = 1; c <= this.numWeekDays; ++c) {
       newDate = date.toLocaleDateString();
@@ -234,12 +237,12 @@ class NSCalendar {
         date = this.addDays(date, 1);
         d++;
       } else {
-        if ( lastDayOfWeek == 0 ) lastDayOfWeek = c - 1
+        if (lastDayOfWeek == 0) lastDayOfWeek = c - 1;
         html += `<div class="day"></div>`;
       }
     }
     //if (lastDayOfMonth == undefined) lastDayOfWeek = 0
-    return { html, lastDayOfWeek }
+    return { html, lastDayOfWeek };
   }
   printDayNames() {
     let dayNames = '<div class="day-names"><div class="week-number"></div>';
@@ -257,41 +260,40 @@ class NSCalendar {
   }
   printMonth(firstDay, month, date) {
     const elMonthName = document.querySelector("#month-name");
-    elMonthName.innerHTML = this.printMonthName(month);
+    elMonthName.innerHTML = `<div class="month-name">${this.printMonthName(month)}</div>`;
 
     const elDayNames = document.querySelector("#day-names");
     elDayNames.innerHTML = this.printDayNames();
 
     const elMonthDays = document.querySelector("#month-days");
-    elMonthDays.innerHTML = this.printMonthDays(
+    elMonthDays.innerHTML = (this.printMonthDays(
       firstDay,
       month - 1,
       new Date(date)
-    );
+    )).html
   }
   printCalendar(firstDay, month, date, n) {
     let calendarString = "";
-    let days, monthDays, firstDayOfMonth
-    let gregDate = new Date(date)
-    
+    let days, monthDays, firstDayOfMonth;
+    let gregDate = new Date(date);
+
     const dayNames = this.printDayNames();
 
     for (let i = 0; i < n; i++) {
       days = this.monthsDays[month - 1 + i];
-      firstDayOfMonth = firstDayOfMonth == undefined
-        ? firstDay
-        : monthDays.lastDayOfMonth
+      firstDayOfMonth =
+        firstDayOfMonth == undefined ? firstDay : monthDays.lastDayOfMonth;
 
-      console.log({firstDayOfMonth})
+      console.log({ firstDayOfMonth });
 
-      monthDays = this.printMonthDays(firstDayOfMonth, month - 1 + i, gregDate)
+      monthDays = this.printMonthDays(firstDayOfMonth, month - 1 + i, gregDate);
 
-      calendarString += this.printMonthName(month + i);
+      calendarString += `<div class="month-name">${this.printMonthName(month + i)}</div>`;
       calendarString += dayNames;
-      calendarString += monthDays.html
+      calendarString += monthDays.html;
 
-      console.log({gregDate, days})
-      gregDate = this.addDays(gregDate, days)
+      console.log({ gregDate, days });
+      gregDate = this.addDays(gregDate, days);
     }
     const elMonthName = document.querySelector("#calendar");
     elMonthName.innerHTML = calendarString;
