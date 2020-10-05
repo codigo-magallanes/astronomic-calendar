@@ -42,12 +42,17 @@ const monthsARRAY = [
   "andrómeda",
 ];
 
-setTimeout(testDateChange, 5000);
+calendar.weekDays = weekDaysARRAY
+calendar.monthNames = monthsARRAY
+
+setTimeout(printConsecutiveMonths, 5000);
 
 function testDateChange() {
   console.log('fullmoon: ', calendar.fullMoon = true)
   calendar.yearZero = 2020;
-  calendar.weekDays = weekDaysARRAY
-  calendar.monthNames = monthsARRAY
   calendar.printScreen(0, 1, [2020, 1, 8]);
+}
+
+function printConsecutiveMonths() {
+  calendar.printCalendar(4, 3, [2020,2,18], 3)
 }
