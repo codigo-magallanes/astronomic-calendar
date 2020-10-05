@@ -1,4 +1,7 @@
 # CHANGELOG: Astronomic Calendar
+## 0.1.5 - 2020/10/05
+ ## Fixed
+  - gregorian calendar working again
 ## 0.1.4 - 2020/10/05
  ## Added
   - new CSS selectors
