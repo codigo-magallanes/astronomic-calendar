@@ -6,7 +6,7 @@ class NSCalendar {
     this._data = data;
     this._sunData = [];
   }
-  /** 
+  /**
    * DEFAULT VALUES
    */
   _weekDays = [
@@ -19,19 +19,19 @@ class NSCalendar {
     "domingo",
   ];
   _months = [
-      "enero",
-      "febrero",
-      "marzo",
-      "abril",
-      "mayo",
-      "junio",
-      "julio",
-      "agosto",
-      "septiembre",
-      "octubre",
-      "noviembre",
-      "diciembre"
-  ]
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
+  ];
   /**
    * MODIFY DEFAULT VALUES
    * SETTERS & GETTERS
@@ -41,8 +41,8 @@ class NSCalendar {
     console.log("weekDays = ", arr);
   }
   set monthNames(arr) {
-      this._months = arr
-      console.log('months = ', arr)
+    this._months = arr;
+    console.log("months = ", arr);
   }
   /**
    * @param {String} sunPhase
@@ -63,7 +63,7 @@ class NSCalendar {
     this._yearZero = y;
   }
   get yearZero() {
-    return this._yearZero
+    return this._yearZero;
   }
   // Astronomic Data
   get astroData() {
@@ -99,20 +99,20 @@ class NSCalendar {
   // locale
   conf_locale = "es-ES";
   set locale(x) {
-    this.conf_locale = x
-    console.log('conf_locale: ', locale)
+    this.conf_locale = x;
+    console.log("conf_locale: ", locale);
   }
   get locale() {
-    return this.conf_locale
+    return this.conf_locale;
   }
   // Moon cicle
   conf_moonCicle = false;
   set moonCicle(x) {
-    this.conf_moonCicle = x
-    console.log('conf_moonCicle: ', this.moonCicle)
+    this.conf_moonCicle = x;
+    console.log("conf_moonCicle: ", this.moonCicle);
   }
   get conf_moonCicle() {
-    return this.conf_moonCicle
+    return this.conf_moonCicle;
   }
 
   /** INTERNAL FUNCTIONS */
@@ -125,7 +125,6 @@ class NSCalendar {
   }
   addDays(date, days) {
     var result = new Date(date);
-    console.log({ result });
     result.setDate(result.getDate() + days);
     return result;
   }
@@ -177,10 +176,10 @@ class NSCalendar {
     return monthDays;
   }
   // m = NSC month index
-  // date = firts day of de month in gregorian time
+  // date = first day of de month in gregorian time
   // in original formula is also: moon = moon data
   printMonthDays(firstDayOfMonth, m, date) {
-    let html = "";
+    let html = "", printWeekResp, lastDayOfMonth
     let days = this.monthsDays[m];
     let numberOfWeeks = Math.ceil(
       (this.monthsDays[m] + firstDayOfMonth) / this.numWeekDays
@@ -188,16 +187,20 @@ class NSCalendar {
     let firstDayDate = date;
     let firstDayOfWeek = firstDayOfMonth;
     for (let r = 1; r <= numberOfWeeks; ++r) {
+      printWeekResp = this.printWeek(r, days, firstDayOfMonth, firstDayDate)
       html += `<div class="week week-${r}"><div class="week-number">${r}</div>`;
-      html += this.printWeek(r, days, firstDayOfMonth, firstDayDate);
+      html += printWeekResp.html
       html += `</div>`;
       firstDayDate = this.addDays(
         firstDayDate,
         this.numWeekDays - firstDayOfWeek
       );
       firstDayOfWeek = 0;
+      if (r == numberOfWeeks) {
+        lastDayOfMonth = printWeekResp.lastDayOfWeek
+      }
     }
-    return html;
+    return { html, lastDayOfMonth };
   }
   sunClass(d) {
     return this._sunData.includes(d) ? "new-year" : "void";
@@ -208,7 +211,8 @@ class NSCalendar {
   // date = gregorian date of first day of the week.
   printWeek(w, days, firstDay, date) {
     let html = "",
-    newDate;
+      newDate,
+      lastDayOfWeek
     let d = w * this.numWeekDays - (this.numWeekDays + firstDay) + 1;
     for (let c = 1; c <= this.numWeekDays; ++c) {
       newDate = date.toLocaleDateString();
@@ -224,10 +228,11 @@ class NSCalendar {
         date = this.addDays(date, 1);
         d++;
       } else {
+        if ( lastDayOfWeek == undefined ) lastDayOfWeek = c - 1
         html += `<div class="day"></div>`;
       }
     }
-    return html;
+    return { html, lastDayOfWeek }
   }
   printDayNames() {
     let dayNames = '<div class="day-names"><div class="week-number"></div>';
@@ -241,16 +246,47 @@ class NSCalendar {
   }
   printMonthName(m) {
     let monthName = this._months[m - 1].replace(/^\w/, (c) => c.toUpperCase());
-    return monthName
+    return monthName;
   }
   printScreen(firstDay, month, date) {
-    const elMonthName = document.querySelector('.month-name')
-    elMonthName.innerHTML = this.printMonthName(month)
+    const elMonthName = document.querySelector(".month-name");
+    elMonthName.innerHTML = this.printMonthName(month);
 
     const elDayNames = document.querySelector("#day-names");
     elDayNames.innerHTML = this.printDayNames();
-  
+
     const elMonthDays = document.querySelector("#month-days");
-    elMonthDays.innerHTML = this.printMonthDays(firstDay, month - 1, new Date(date));
+    elMonthDays.innerHTML = this.printMonthDays(
+      firstDay,
+      month - 1,
+      new Date(date)
+    );
+  }
+  printCalendar(firstDay, month, date, n) {
+    let calendarString = "";
+    let days, monthDays, firstDayOfMonth
+    let gregDate = new Date(date)
+    
+    const dayNames = this.printDayNames();
+
+    for (let i = 0; i < n; i++) {
+      days = this.monthsDays[month - 1 + i];
+      firstDayOfMonth = firstDayOfMonth == undefined
+        ? firstDay
+        : monthDays.lastDayOfMonth
+
+      console.log({firstDayOfMonth})
+
+      monthDays = this.printMonthDays(firstDayOfMonth, month - 1 + i, gregDate)
+
+      calendarString += this.printMonthName(month + i);
+      calendarString += dayNames;
+      calendarString += monthDays.html
+
+      console.log({gregDate, days})
+      gregDate = this.addDays(gregDate, days)
+    }
+    const elMonthName = document.querySelector(".month-name");
+    elMonthName.innerHTML = calendarString;
   }
 }
