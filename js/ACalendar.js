@@ -1,4 +1,4 @@
-class NSCalendar {
+class ACalendar {
   constructor(yearZero, gregYear, data) {
     this._yearZero = yearZero;
     this._year = gregYear - yearZero;
@@ -272,6 +272,13 @@ class NSCalendar {
       new Date(date)
     )).html
   }
+  /**
+   * printCalendar()
+   * @param {Number} firstDay / Day of the week of first day of first month /
+   * @param {Number} month / first month of astronomic calendar to print /
+   * @param {Array} date / array of first day correspondant in Gregorian Calendar [year, month, day] /
+   * @param {Number} n / number of months to print / 
+   */
   printCalendar(firstDay, month, date, n) {
     let calendarString = "";
     let days, monthDays, firstDayOfMonth;
@@ -298,4 +305,31 @@ class NSCalendar {
     const elMonthName = document.querySelector("#calendar");
     elMonthName.innerHTML = calendarString;
   }
+printCalendarYear(y) {
+  let calendarString = "";
+  let days, monthDays, firstDayOfMonth;
+  let gregDate = new Date(date);
+
+  const dayNames = this.printDayNames();
+
+  for (let i = 0; i < n; i++) {
+    days = this.monthsDays[month - 1 + i];
+    firstDayOfMonth =
+      firstDayOfMonth == undefined ? firstDay : monthDays.lastDayOfMonth;
+
+    console.log({ firstDayOfMonth });
+
+    monthDays = this.printMonthDays(firstDayOfMonth, month - 1 + i, gregDate);
+
+    calendarString += `<div class="month-name">${this.printMonthName(month + i)}</div>`;
+    calendarString += dayNames;
+    calendarString += monthDays.html;
+
+    console.log({ gregDate, days });
+    gregDate = this.addDays(gregDate, days);
+  }
+  const elMonthName = document.querySelector("#calendar");
+  elMonthName.innerHTML = calendarString;
 }
+}
+export { ACalendar}

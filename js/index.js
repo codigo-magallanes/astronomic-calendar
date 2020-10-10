@@ -1,3 +1,7 @@
+import AData from './AData.js'
+import astroData from './astroData.js'
+import { ACalendar } from './ACalendar.js';
+
 /**
  * ASTRONOMIC CALENDAR NEW OPTIONS
  */
@@ -26,7 +30,7 @@ const monthsARRAY = [
  * CALENDARS
  */
 
-calendar = new NSCalendar(2018, 2019, astronomicData);
+const calendar = new ACalendar(2018, 2019, AData);
 
 console.log("setfullmoon: ", (calendar.fullMoon = true));
 
