@@ -14,5 +14,3 @@ This determines, as well, that every year begins with a new week. In the case of
 This is a very early stage so don't expect much yet.
 ## Collaborators
 Always open to new ideas and collaborations.
- ### Issues
-  - Gregorian calendar does not show days.

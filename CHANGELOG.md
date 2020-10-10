@@ -1,4 +1,11 @@
 # CHANGELOG: Astronomic Calendar
+## 0.2.2 - 2020/10/10
+ ### Added
+  + New data format in './js/astroData.js'/
+ ### Fixed
+  + Shows New Year
+ ### Issues
+  + A lot of old code not being used
 ## 0.2.1 - 2020/10/05
  ### Changed
   - Astronomic data from './js/data.js' now loaded from './js/AData.js'
