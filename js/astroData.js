@@ -1,5 +1,4 @@
 export default {
-  "astroData": {
     "docs": [],
     "sun": {
       "2001": {
@@ -2503,5 +2502,4 @@ export default {
         }
       ]
     }
-  }
 }

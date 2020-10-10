@@ -30,15 +30,19 @@ const monthsARRAY = [
  * CALENDARS
  */
 
-const calendar = new ACalendar(2018, 2019, AData);
+const calendar = new ACalendar(2018, 2019, AData, astroData );
 
 console.log("setfullmoon: ", (calendar.fullMoon = true));
 
+let test = calendar.astroData
+console.log({test})
 calendar.includeSunPhase = "MaxLatSouth";
-
-calendar.printMonth(1, 12, "2019, 4, 5");
+calendar.addSunData = 'equiNorth'
+let arrSun = calendar.sunData
+console.log({arrSun})
+//calendar.printMonth(1, 12, "2019, 4, 5");
 
 calendar.weekDays = weekDaysARRAY;
 calendar.monthNames = monthsARRAY;
 
-calendar.printCalendar(4, 3, [2020, 2, 18], 3);
+calendar.printCalendar(2, 3, [2020, 2, 18], 3);

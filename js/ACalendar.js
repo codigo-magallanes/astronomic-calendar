@@ -1,9 +1,10 @@
 class ACalendar {
-  constructor(yearZero, gregYear, data) {
+  constructor(yearZero, gregYear, data, astroData) {
     this._yearZero = yearZero;
     this._year = gregYear - yearZero;
     this._gregYear = gregYear;
     this._data = data;
+    this._astroData = astroData;
     this._sunData = [];
   }
   /**
@@ -62,6 +63,17 @@ class ACalendar {
     console.log("Sun Phases set: ", this._data, arr);
     this._sunData = arr;
   }
+  /**
+   * @param {string} sunPhase
+   * get sunPhase for before, actual and next year
+   */
+  set addSunData(sunPhase) {
+    let year = this._gregYear -1
+    for (let i = 0; i <= 2; i++) {
+      let sunDate =this._astroData['sun'][year + i][sunPhase]['gregDate']
+      this._sunData.push((new Date(sunDate).toLocaleDateString()))
+    }
+  }
   // yearZero
   set yearZero(y) {
     this._yearZero = y;
@@ -70,8 +82,14 @@ class ACalendar {
     return this._yearZero;
   }
   // Astronomic Data
-  get astroData() {
+  get data() {
     return this._data;
+  }
+  get astroData() {
+    return this._astroData
+  }
+  get sunData() {
+    return this._sunData
   }
   // Leap year
   conf_leapYears = true;
